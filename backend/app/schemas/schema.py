@@ -8,6 +8,7 @@ class CreateBook(BaseModel):
     class Config:
         orm_mode = True
 
+
 class BookDto(BaseModel):
     id: int
     title: str

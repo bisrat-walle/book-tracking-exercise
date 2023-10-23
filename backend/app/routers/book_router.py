@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Path, Depends, status
+from fastapi import APIRouter, Path, Depends, status
 from sqlalchemy.orm import Session
 from schemas.schema import CreateBook, BookDto
 from repositories.book_repository import BookRepository
@@ -14,7 +14,7 @@ async def create_book(request: CreateBook, db: Session = Depends(get_db)):
     book_repository = BookRepository(db)
     book_repository.save(book)
     return book
-    
+
 
 @book_router.get("/", response_model=list[BookDto], status_code=status.HTTP_200_OK)
 async def get_books(db: Session = Depends(get_db)):
@@ -22,13 +22,17 @@ async def get_books(db: Session = Depends(get_db)):
     books = book_repository.find_all()
     return books
 
+
 @book_router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_book(id: int = Path(..., gt=0), db: Session = Depends(get_db)):
     book_repository = BookRepository(db)
     book_repository.delete(id)
 
+
 @book_router.put("/{id}", response_model=BookDto, status_code=status.HTTP_200_OK)
-async def update_status(id: int = Path(..., gt=0), status: str="", db: Session = Depends(get_db)):
+async def update_status(
+    id: int = Path(..., gt=0), status: str = "", db: Session = Depends(get_db)
+):
     book_repository = BookRepository(db)
     book = book_repository.update_status(id, status)
     return book

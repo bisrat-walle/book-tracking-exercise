@@ -13,7 +13,9 @@ class BookRepository:
         self.db.refresh(book)
         return book
 
-    def find_all(self, ) -> Iterable[Book]:
+    def find_all(
+        self,
+    ) -> Iterable[Book]:
         return self.db.query(Book).all()
 
     def delete(self, id: int):
