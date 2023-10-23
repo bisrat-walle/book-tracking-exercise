@@ -104,7 +104,7 @@ const Home: React.FC = () => {
       </div>
       <div className="grid grid-cols-3 gap-3">
         {Array.from(titleCategoryMapping.keys()).map((key) => (
-          <div className="columns-1">
+          <div className="columns-1" key={key}>
             <BookCategory
               title={key}
               books={titleCategoryMapping.get(key) as Book[]}
